@@ -11,7 +11,7 @@ public static void main(String[] args){
 ```
 + 注意: __String args[]__与__String[] args__都可以执行，但是推荐使用__String[] args__,可以避免歧义和误读。  
 >关于args  
->> 运行如下代码
+>> 运行如下代码  
 ```
 public class Test {
     public static void main(String[] args) {
