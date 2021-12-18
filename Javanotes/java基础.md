@@ -410,11 +410,11 @@ public class HelloWorld {
 空白行或者有注释的行，Java 编译器都会忽略掉
 
 ## 继承（inheritance）
->继承性的好处
+### 继承性的好处
   + 减少了代码的冗余，提高了代码的复用性
   + 便于功能的扩展
   + 为之后的多态性，提供了前提
->继承性的格式：class A extends B{}
+### 继承性的格式：class A extends B{}
 ```java
 class fulei {
 
@@ -437,7 +437,7 @@ class zilei extends fulei {
 
 继承可以使用 extends 和 implements 这两个关键字来实现继承，而且所有的类都是继承于 java.lang.Object，当一个类没有继承的两个关键字，则默认继承object（这个类在 java.lang 包中，所以不需要 import）祖先类  
 
-+ extends 关键字
+#### extends 关键字
 ```java
 public class Animal { 
     private String name;   
@@ -452,7 +452,7 @@ public class Animal {
 public class Penguin  extends  Animal{ 
 }
 ```
-+ implements关键字
+#### implements关键字
 
 使用 implements 关键字可以变相的使java具有多继承的特性，使用范围为类继承接口的情况，可以同时继承多个接口（接口跟接口之间采用逗号分隔）
 
@@ -470,9 +470,49 @@ public class C implements A,B {
 }
 ```
 
-+ super与this 关键字  
+#### super与this 关键字  
 
-super关键字：我们可以通过super关键字来实现对父类成员的访问，用来引用当前对象的父类。
+__super__ 关键字:  
+    super表示使用它的类的父类。可用于：   
 
-this关键字：指向自己的引用。
++ 调用父类的构造方法
++ 调用父类的方法（子类覆盖了父类的方法时）
++ 访问父类的数据域（可以这样用。但是没有必要）
++ 调用方法：  
+  
+```java
+super();
+super(参数列表);
+```
++ 注意：super 语句必须是子类构造方法的第一条语句。不能在子类中使用父类构造方法名来调用父类构造方法。 父类的构造方法不被子类继承。调用父类的构造方法的唯一途径是使用 super 关键字，如果子类中没显式调用，则编译器自动将 super(); 作为子类构造方法的第一条语句。这会形成一个构造方法链。
 
+静态方法中不能使用 super 关键字。
+
+调用父类的方法语法：
+```java 
+super.方法名(参数列表);
+```
+如果是继承的方法，是没有必要使用 super 来调用，直接即可调用。但如果子类覆盖或重写了父类的方法，则只有使用 super 才能在子类中调用父类中的被重写的方法。  
+
+__this__ 关键字：
+
+指向自己的引用
+
+this 关键字表示当前对象。可用于：
+
++ 调用当前类的构造方法，并且必须是方法的第一条语句。如：this(); 调用默认构造方法。this(参数); 调用带参构造方法  
++ 限定当前对象的数据域变量。一般用于方法内的局部变量与对象的数据域变量同名的情况。如 this.num = num。this.num 表示当前对象的数据域变量 num，而 num 表示方法中的局部变量
+
+#### final关键字  
+final关键字声明类可以把类定义为不能继承的，即最终类;  
+或者用于修饰方法，该方法不能被子类重写  
++ 声明类：
+```java
+final class 类名 {//类体}
+```
++ 声明方法： 
+```java
+修饰符(public/private/default/protected) final 返回值类型 方法名(){//方法体}
+```
+
+__注__:实例变量也可以被定义为 final，被定义为 final 的变量不能被修改。被声明为 final 类的方法自动地声明为 final，但是实例变量并不是 final
