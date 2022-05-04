@@ -1,6 +1,5 @@
 [Toc]
 # java基础笔记
-## 第一个java程序
 
 ## 第一个java程序
 >创建文件HelloWorld.java(文件名字与类名一致)
@@ -9,7 +8,7 @@ public static void main(String[] args){
     System.out.println("Hello World");
 }
 ```
-+ 注意: __String args[]__与__String[] args__都可以执行，但是推荐使用__String[] args__,可以避免歧义和误读。  
++ 注意: __String args[]__ 与 __String[] args__ 都可以执行，但是推荐使用 __String[] args__ ,可以避免歧义和误读。  
 >关于args  
 >> 运行如下代码  
 ```
@@ -516,3 +515,4 @@ final class 类名 {//类体}
 ```
 
 __注__:实例变量也可以被定义为 final，被定义为 final 的变量不能被修改。被声明为 final 类的方法自动地声明为 final，但是实例变量并不是 final
+
