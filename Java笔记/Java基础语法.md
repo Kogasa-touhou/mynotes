@@ -1,4 +1,15 @@
-[Toc]
+- [java基础](#java基础)
+  - [第一个java程序](#第一个java程序)
+  - [Java 基础语法](#java-基础语法)
+  - [基本语法](#基本语法)
+  - [Java标识符](#java标识符)
+  - [Java修饰符](#java修饰符)
+  - [Java变量](#java变量)
+  - [Java数组](#java数组)
+  - [Java枚举](#java枚举)
+  - [Java关键字](#java关键字)
+  - [Java注释](#java注释)
+  - [Java空行](#java空行)
 # java基础
 
 ## 第一个java程序
