@@ -9,6 +9,15 @@
     - [关键字](#关键字)
     - [C中的空格](#c中的空格)
   - [C数据类型](#c数据类型)
+    - [整数类型](#整数类型)
+    - [浮点类型](#浮点类型)
+    - [void类型](#void类型)
+    - [数值类型转换](#数值类型转换)
+  - [变量](#变量)
+    - [变量的定义](#变量的定义)
+    - [变量的声明](#变量的声明)
+    - [C 中的左值（Lvalues）和右值（Rvalues）](#c-中的左值lvalues和右值rvalues)
+  - [C常量](#c常量)
 # C语言基础  
 
 ## 主要结构  
@@ -288,3 +297,243 @@ people = man + woman
     </tr>
 </table>
 
+### 整数类型  
+
+整数类型的存储大小和值范围的细节: 
+<table>
+    <tr>
+        <td>类型</td>
+        <td>存储大小</td>
+        <td>值范围</td>
+    </tr>
+    <tr>
+        <td>char</td>
+        <td>1字节</td>
+        <td>-128到127或者0到255</td>
+    </tr>
+    <tr>
+        <td>unsigned char</td>
+        <td>1字节</td>
+        <td>0到255</td>
+    </tr>
+    <tr>
+        <td>signed char</td>
+        <td>1字节</td>
+        <td>-128到127</td>
+    </tr>
+    <tr>
+        <td>int</td>
+        <td>2或4字节</td>
+        <td>-32,768 到 32,767 或 -2,147,483,648 到 2,147,483,647</td>
+    </tr>
+    <tr>
+        <td>unsigned int</td>
+        <td>2或4字节</td>
+        <td>0 到 65,535 或 0 到 4,294,967,295</td>
+    </tr>
+    <tr>
+        <td>short</td>
+        <td>2字节</td>
+        <td>-32,768 到 32,767</td>
+    </tr>
+    <tr>
+        <td>unsigned short</td>
+        <td>2字节</td>
+        <td>0 到 65,535</td>
+    </tr>
+    <tr>
+        <td>long</td>
+        <td>4字节</td>
+        <td>-2,147,483,648 到 2,147,483,647</td>
+    </tr>
+    <tr>
+        <td>unsigned long</td>
+        <td>4字节</td>
+        <td>0 到 4,294,967,295</td>
+    </tr>
+</table>
+
+可以使用 __sizeof__ 运算符来得到对象或类型的存储字节大小。
+
+```c
+#include <stdio.h>
+#include <limits.h>
+
+int main()
+{
+    printf("int 存储大小 : %lu \n", sizeof(int));
+
+    return 0;
+}
+
+```
+
+### 浮点类型  
+
+标准浮点类型的存储大小、值范围和精度的细节: 
+
+<table>
+    <tr>
+        <td>类型</td>
+        <td>存储大小</td>
+        <td>值范围</td>
+        <td>精度</td>
+    </tr>
+    <tr>
+        <td>float</td>
+        <td>4字节</td>
+        <td>1.2E-38 到 3.4E+38</td>
+        <td>6 位有效位</td>
+    </tr>
+    <tr>
+        <td>double</td>
+        <td>8 字节</td>
+        <td>2.3E-308 到 1.7E+308</td>
+        <td>15 位有效位</td>
+    </tr>
+    <tr>
+        <td>long double</td>
+        <td>16 字节</td>
+        <td>3.4E-4932 到 1.1E+4932</td>
+        <td>19 位有效位</td>
+    </tr>
+</table>
+
+### void类型  
+
+void 类型指定没有可用的值  
+
+<table>
+    <tr>
+        <td>序号</td>
+        <td>类型与描述</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>函数返回为空  
+C 中有各种函数都不返回值，或者您可以说它们返回空。不返回值的函数的返回类型为空。例如 void exit (int status);</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>函数参数为空  
+C 中有各种函数不接受任何参数。不带参数的函数可以接受一个 void。例如 int rand(void);</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>指针指向 void  
+类型为 void * 的指针代表对象的地址，而不是类型。例如，内存分配函数 void *malloc( size_t size ); 返回指向 void 的指针，可以转换为任何数据类型。</td>
+    </tr>
+</table>
+
+### 数值类型转换  
+C语言中如果一个表达式中含有不同类型的常量和变量，在计算时，会自动将其转化为同一种类型。我们同样也可以对其进行强制的类型转换  
+
+自动转换规则 ： 
++ 浮点数赋给整型，该浮点数小数被舍去；
++ 整数赋给浮点型，数值不变，但是被存储到相应的浮点型变量中； 
+
+强制类型转换 ：
++ 强制类型转换形式: (类型说明符)(表达式)  
+
+## 变量  
+其本质就是程序可以操作的存储区的名称  
+每个变量都有特定的类型:  
+
+| 类型 | 描述 |
+| :---:| :--: |
+|char|通常是一个字节（八位）, 这是一个整数类型。| 
+|int|整型，4 个字节，取值范围 -2147483648 到 2147483647。|
+|float|单精度浮点值。单精度是这样的格式，1位符号，8位指数，23位小数。|
+|double|双精度浮点值。双精度是1位符号，11位指数，52位小数。|
+|void|表示类型的缺失。|  
+
+### 变量的定义  
+格式 : 
+```c 
+type variable_list;
+
+int i,j,k;
+char c,ch;
+float f;
+double d;
+
+type variable_name = value;
+
+extern int d = 3,f = 5;  //d和f的声明和初始化 
+
+```
+
+### 变量的声明  
+为确保在编译的时候指定的类型和名称存在，所以在程序连接编译器的时候需要实际的变量声明   
+有两种方式  
++ int a这种在声明的时候已经建立了存储空间  
++ 另外一种不需要建立存储空间的，使用extern关键字声明变量
++ 除非有extern关键字，否则就是变量的定义 
+
+注意:  
++ 变量在使用前就要被定义或者声明  
++ 在一个程序中，变量只能定义一次，却可以声明多次  
++ 定义分配存储空间，而声明不会
+
+```c
+extern int i; //声明不是定义 
+int i;      //声明，也是定义  
+
+```
+
+如果需要在一个源文件中引用另外一个源文件中定义的变量，我们只需在引用的文件中将变量加上 extern 关键字的声明即可。  
+```c 
+//声明外部变量
+//addtwonum.c
+#include <stdio.h>
+extern int x ;
+extern int y ;
+
+int addtwonum() {
+    return x + y ;
+}
+```
+
+```c
+//test.c
+#include <stdio.h>
+//定义全局变量  
+int x = 1;
+int y = 2;
+int addtwonum() ;
+int main(void) {
+    int result ;
+    result = addtwonum();
+    printf("result为: %d\n",result) ;
+    return 0 ;
+}
+```
+```bash
+$ gcc addtwonum.c test.c -o main
+$ ./main
+result 为: 3
+```
+
+### C 中的左值（Lvalues）和右值（Rvalues）
+C中有两种类型的表达式  
++ 左值 (lvalue) : 指向内存位置的表达式被称为左值（lvalue）表达式。左值可以出现在赋值号的左边或右边  
++ 右值 (rvalue) : 术语右值（rvalue）指的是存储在内存中某些地址的数值。右值是不能对其进行赋值的表达式，也就是说，右值可以出现在赋值号的右边，但不能出现在赋值号的左边  
+
+变量是左值所以可以出现在赋值符号的左边，数值型的字面值是右值。因此不能被赋值 
+
+总结: 
++  当需要保存数据的时候，需要lvalues
++  当需要读取数据的时候，需要rvalues  
+lvalues 和 rvalues 角色的相互转换  
++ 根据表达式的上下文情况，lvalues 在需要 rvalues 的地方会自动转换为 rvalues 
+```c 
+int n;
+int m;
+m = n + 2; //表达式里的n就是rvalues
+
+```
+
++ rvalues永远不能转换为lvalues
+
+
+## C常量 
