@@ -1,4 +1,4 @@
-- [C语言基础](#c语言基础)
+- [C语言基础(上)](#c语言基础上)
   - [主要结构](#主要结构)
     - [编译\&运行C程序](#编译运行c程序)
   - [基础语法](#基础语法)
@@ -52,7 +52,8 @@
     - [初始化数组](#初始化数组)
     - [访问数组元素](#访问数组元素)
   - [enum(枚举)](#enum枚举)
-# C语言基础  
+    - [枚举变量的定义](#枚举变量的定义)
+# C语言基础(上)
 
 ## 主要结构  
 
@@ -1213,4 +1214,56 @@ double xianbei = balance[9];
 ```
 
 ## enum(枚举)
+
+枚举是一种数据类型，让数据更简洁，易读  
+定义格式:
+```c
+enum 枚举名 {元素1,元素2,....};
+```
+
+### 枚举变量的定义 
+定义枚举变量的三种方式: 
++ 先定义枚举类型，再定义枚举变量
+```c
+enum DAY
+{
+    MON=1,TUE,WED,THD,FRI,SAT,SUN
+};
+enum DAY day;
+```
++ 定义枚举类型的同时定义枚举变量
+```c
+enum DAY
+{
+      MON=1, TUE, WED, THU, FRI, SAT, SUN
+} day;
+```
++ 省略枚举名称，直接定义枚举变量 
+```c
+enum
+{
+      MON=1, TUE, WED, THU, FRI, SAT, SUN
+} day;
+```
+在 C 语言中，枚举类型是被当做 int 或者 unsigned int 类型来处理的，所以按照 C 语言规范是没有办法遍历枚举类型的  
+
+例子：  
+```c
+
+#include <stdio.h>
+ 
+enum DAY
+{
+      MON=1, TUE, WED, THU, FRI, SAT, SUN
+};
+ 
+int main()
+{
+    enum DAY day;
+    day = WED;
+    printf("%d",day);
+    return 0;
+}
+//输出结果为：3
+```
 
