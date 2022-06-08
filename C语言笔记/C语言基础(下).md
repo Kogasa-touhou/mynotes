@@ -7,6 +7,11 @@
         - [NULL指针](#null%E6%8C%87%E9%92%88)
         - [指针的算数运算](#%E6%8C%87%E9%92%88%E7%9A%84%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97)
         - [指针数组](#%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84)
+        - [指针数组和数组指针的区别](#%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84%E5%92%8C%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88%E7%9A%84%E5%8C%BA%E5%88%AB)
+        - [指向指针的指针](#%E6%8C%87%E5%90%91%E6%8C%87%E9%92%88%E7%9A%84%E6%8C%87%E9%92%88)
+        - [传递指针给函数](#%E4%BC%A0%E9%80%92%E6%8C%87%E9%92%88%E7%BB%99%E5%87%BD%E6%95%B0)
+        - [从函数返回指针](#%E4%BB%8E%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E6%8C%87%E9%92%88)
+        - [复杂指针的说明](#%E5%A4%8D%E6%9D%82%E6%8C%87%E9%92%88%E7%9A%84%E8%AF%B4%E6%98%8E)
 
 <!-- /TOC -->
 
@@ -214,3 +219,163 @@ int main()
 
 ### 指针数组  
 
+当我们想让数组存储指向int或者char或者其他数据类型的指针，可以尝试类似于以下的结构：
+```c
+int *ptr[MAX]
+```
+这里可以表示由MAX个整数指针组成。每个ptr中的元素都是一个指向int值的指针  
+同样，我们也可以用一个指向字符的指针数组来存储一个字符串列表  
+```c
+#include <stdio.h>
+
+const int MAX = 4;
+
+int main()
+{
+    const char *names[]= {
+            "Lunasa Prismriver!",
+            "Merlin Prismriver!",
+            "Lyrica Prismriver!",
+            "Leira Prismriver!"
+    };
+    int i = 0;
+
+    for(i = 0;i < MAX;i++)
+    {
+        printf("Value of names[%d] = %s\n",i,names[i]);
+    }
+    return 0;
+
+}
+```
+运行结果如下：
+```c
+Value of names[0] = Lunasa Prismriver!
+Value of names[1] = Merlin Prismriver!
+Value of names[2] = Lyrica Prismriver!
+Value of names[3] = Leira Prismriver!
+```
+
+### 指针数组和数组指针的区别
+
+> 指针数组
++ 首先这是一个数组，“指针的数组” 
++ 意思是这个数组的所有元素都是指针类型 
++ int *p1[3];
+
+> 数组指针  
++ 这是一个指针，“数组的指针”
++ 这个指针指向一个数组的首地址
++ int (*p2)[3];  
+
+### 指向指针的指针 
+
+这是一种多级简介寻址的形式，或称之为一个指针链。  
+一个指针包含了一个变量的地址  
+当定义了一个指针的指针时，第一个指针包含了第二个指针的地址，第二个指针包含实际值的地址  
+例子：int类型指针的指针  
+```c
+int **var;
+```
+
+### 传递指针给函数 
+
+函数的参数类型可以声明为指针  
+能接受指针作为参数的函数，也能接受数组作为参数 
++ 例1
+```c
+#include <stdio.h>
+#include <time.h>
+
+void getSeconds(unsigned long *par);
+
+int main()
+{
+    unsigned long sec;
+
+    getSeconds( &sec );
+
+    /*输出实际值*/
+    printf("Number of seconds: %d\n", sec);
+
+    return 0;
+}
+
+void getSeconds(unsigned long *par)
+{
+    /*获取当前的秒数*/
+    *par = time(NULL);
+    return;
+}
+```
+运行结果：
+```c
+Number of seconds: 1654648611
+```
+
+例2：
+```c
+#include <stdio.h>
+
+/*函数声明*/
+double getAverage(int *arr,int size);
+
+int main()
+{
+    /*带有5个元素的整型数组*/
+    int balance[5] = {114,514,19,19,810};
+    double avg;
+
+    /*传递一个指向数组的指针作为参数*/
+    avg = getAverage( balance,5);
+
+    /*输出返回值*/
+    printf("Average value is: %f\n",avg);
+
+    return 0;
+}
+
+double getAverage(int *arr,int size)
+{
+    int i,sum=0;
+    double avg;
+
+    for(i = 0; i < size;++i)
+    {
+        sum += arr[i];
+    }
+
+    avg = (double)sum /size;
+
+    return avg;
+}
+```
+运行结果：
+```
+Average value is: 295.200000
+```
+
+### 从函数返回指针  
+
+C允许从函数返回指针  
+可以用如下的格式声明一个返回指针的函数  
+```c
+int *myFunction()
+{
+    ...
+}
+```
+
+C不支持在调用函数时返回局部变量的地址，除非局部变量是static的  
+
+### 复杂指针的说明  
+
++ int p;  普通的整型变量  
++ int *p;  一个返回整型数据的指针  
++ int p[3];  一个由整型数据组成的数组  
++ int *p[3]; 一个由返回整型数据的指针所组成的数组 
++ int (*p)[3]; 一个指向由整型数据组成的数组的指针 
++ int **p; 一个指向整型元素指针的指针
++ int p(int);  一个有整型变量的参数，返回值是整型数据的函数 
++ int (*p)(int); 一个指向有一个整型参数且返回类型为整型的函数的指针  
++ int *(*p(int))[3]; 一个参数为整型且返回指向一个由整型指针变量组成的数组的指针变量的函数 
