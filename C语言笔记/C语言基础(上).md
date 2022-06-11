@@ -390,6 +390,10 @@ people = man + woman
 
 可以使用 __sizeof__ 运算符来得到对象或类型的存储字节大小。
 
++ sizeof(object); //sizeof(对象)
++ sizeof(type_name); //sizeof(类型)；
++ sizeof object; //sizeof 对象;
+
 ```c
 #include <stdio.h>
 #include <limits.h>
